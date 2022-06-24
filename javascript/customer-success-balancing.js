@@ -34,7 +34,7 @@ function findCustomerRepeatedScore(customerSuccess,
   const sortedCustomers = sortCrescentScore(customers);
 
   const sameScoreCounted = {};
-  // model of { score: counted}
+  // modelo de cada atributo do objeto montado com o loop: { score: counted}
 
   for (let index = 0; index < sortedCustomers.length; index++) {
     const customerCurrent = sortedCustomers[index];
@@ -45,7 +45,7 @@ function findCustomerRepeatedScore(customerSuccess,
     }
   }
   const scoreAndRepetitionsArray = Object.entries(sameScoreCounted);
-  // model of [score, counted]
+  // modelo de cada ítem do array montado: [score, counted]
   return scoreAndRepetitionsArray;
 }
 
