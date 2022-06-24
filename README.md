@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RD Challenge
 ## Nossas expectativas
 A equipe de engenharia da RDStation tem alguns princípios onde baseamos nosso trabalho diário. Um deles é: Projete seu código para ser mais fácil de entender, não mais fácil de escrever. 
@@ -86,3 +87,32 @@ Nós vamos aceitar o teste em qualquer uma das linguagens abaixo.
 
 ## Download
 Você pode fazer o download do desafio aqui para as linguagens que já tem o teste implementado: [Link](./challenge.zip)
+=======
+# challengeRDStation
+
+# Javascript
+## Como rodar os testes
+
+No terminal, execute os comandos:
+
+```bash
+cd javascript
+yarn
+yarn test
+```
+
+Ou usando o NPM:
+
+```bash
+cd javascript
+npm install
+npm test
+```
+
+
+Desafio técnico realizado em dois dias corridos, concorridos.
+Vaga: Mulher Engenheira de Software - Suporte N3 (Hydra).
+Empresa: RD Station.
+Local: Florianópolis - Brasil.
+Modelo trabalho: Remoto, opcional Híbrido.
+>>>>>>> ea0bb99d80cc7359d11fb7487999c8c374f6a402
