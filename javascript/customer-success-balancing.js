@@ -5,7 +5,7 @@
  * @param {array} customerSuccessAway
  */
 
-function checkActiveEmployees(customerSuccess, customerSuccessAway) {
+ function checkActiveEmployees(customerSuccess, customerSuccessAway) {
   if (customerSuccessAway && customerSuccessAway !== []) {
     const activeEmployees = customerSuccess.filter((employee) => {
       return customerSuccessAway.every((awayEmployee) => awayEmployee !== employee.id);
@@ -25,66 +25,82 @@ function sortCrescentScore(data) {
   return data.sort((a, b) => a.score - b.score);
 }
 
-// function createCounterClients(ordainedActiveCustomerSucess,
-//   customers,
-//   ) 
-//   {
-//     return ordainedActiveCustomerSucess.map((employee, index) => { 
-//       const score = customers.filter((customer) =>{
-//         const beforeCustomerSucess = ordainedActiveCustomerSucess[index-1];
-//         if(beforeCustomerSucess) {
-//           return customer.score <= employee.score && customer.score > beforeCustomerSucess.score;
-//         }
-//         return customer.score <= employee.score;
-//       }).length
-//       return { id: employee.id, score}
-//     });
-//   }
-
 function findCustomerRepeatedScore(customerSuccess,
   customers,
   customerSuccessAway) {
   const activeEmployees = checkActiveEmployees(customerSuccess, customerSuccessAway);
+
   const sortedActiveCustomerSuccess = sortCrescentScore(activeEmployees);
   const sortedCustomers = sortCrescentScore(customers);
-  const customersCountSameScore = {};
+
+  const sameScoreCounted = {};
+  // model of { score: counted}
+
   for (let index = 0; index < sortedCustomers.length; index++) {
     const customerCurrent = sortedCustomers[index];
-    if (customersCountSameScore[customerCurrent.score]) {
-      customersCountSameScore[customerCurrent.score] += 1;
+    if (sameScoreCounted[customerCurrent.score]) {
+      sameScoreCounted[customerCurrent.score] += 1;
     } else {
-      customersCountSameScore[customerCurrent.score] = 1;
+      sameScoreCounted[customerCurrent.score] = 1;
     }
   }
-  const scoreAndRepetitionsArray = Object.entries(customersCountSameScore);
-
+  const scoreAndRepetitionsArray = Object.entries(sameScoreCounted);
+  // model of [score, counted]
   return scoreAndRepetitionsArray;
+}
+
+function createCounterClients(customerSuccess,
+  customers,
+  customerSuccessAway) {
+  const activeEmployees = checkActiveEmployees(customerSuccess, customerSuccessAway);
+  const sortedActiveCustomerSuccess = sortCrescentScore(activeEmployees);
+  const sameScoresCounted = findCustomerRepeatedScore(customerSuccess, customers, customerSuccessAway);
+
+  const result = sortedActiveCustomerSuccess.map((employee, index) => {
+    const selectEmployee = sameScoresCounted.map((scoreCounted) => {
+      const beforeEmployee = sortedActiveCustomerSuccess[index - 1];
+
+      const score = scoreCounted[0];
+      const repetition = scoreCounted[1];
+
+      if (beforeEmployee) {
+        if (score <= employee.score && score > beforeEmployee.score)
+          return repetition;
+      } else if (score <= employee.score) {
+        return repetition;
+      }
+      return 0;
+
+    });
+    const sumOfEmployeeClients = selectEmployee.reduce((previous, current) => previous + current, 0);
+    return { id: employee.id, numberClients: sumOfEmployeeClients }
+  });
+
+  return result;
 }
 
 function customerSuccessBalancing(
   customerSuccess,
   customers,
   customerSuccessAway
-  ) 
-  {
-    if (customerSuccessAway && customerSuccessAway.length > 0) {
-      const customerSuccessQuantityAway = customerSuccessAway.length;
-      if (customerSuccessAbstation(customerSuccess) < customerSuccessQuantityAway) {
-        throw new Error('The number of employees away is too big');
-      }
+) {
+  if (customerSuccessAway && customerSuccessAway.length > 0) {
+    const customerSuccessQuantityAway = customerSuccessAway.length;
+    if (customerSuccessAbstation(customerSuccess) < customerSuccessQuantityAway) {
+      throw new Error('The number of employees away is too big');
     }
-    const ZERO = 0;
-    const ordainedActiveCustomerSucess = sortCrescentScore(checkActiveEmployees(customerSuccess, customerSuccessAway));
-    
-    const countedCustomerSucessClients = createCounterClients(ordainedActiveCustomerSucess,customers);
-
-    const ordaneidCountedCsClients = sortCrescentScore(countedCustomerSucessClients);
-
-    const last = ordaneidCountedCsClients.length-1;
-    const lastButOne = ordaneidCountedCsClients.length-2;
-    if(ordaneidCountedCsClients[last].score === ordaneidCountedCsClients[lastButOne].score) return ZERO;
-    return ordaneidCountedCsClients[last].id;
   }
+  const ZERO = 0;
+  const countedCustomerSuccessClients = createCounterClients(customerSuccess, customers, customerSuccessAway);
+  const sortNumberOfClients = countedCustomerSuccessClients.sort((a, b) => a.numberClients - b.numberClients)
+
+  const last = sortNumberOfClients.length - 1;
+  const lastButOne = sortNumberOfClients.length - 2;
+  if (sortNumberOfClients[last].numberClients === sortNumberOfClients[lastButOne].numberClients) {
+    return ZERO;
+  }
+  return sortNumberOfClients[last].id;
+}
 
 test("Scenario 1", () => {
   const css = [
@@ -179,3 +195,4 @@ test("Scenario 7", () => {
 
   expect(customerSuccessBalancing(css, customers, csAway)).toEqual(3);
 });
+
