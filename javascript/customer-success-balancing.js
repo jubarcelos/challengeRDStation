@@ -25,22 +25,41 @@ function sortCrescentScore(data) {
   return data.sort((a, b) => a.score - b.score);
 }
 
-function createCounterClients(ordainedActiveCustomerSucess,
-  customers,
-  ) 
-  {
-    return ordainedActiveCustomerSucess.map((employee, index) => { 
-      const score = customers.filter((customer) =>{
-        const beforeCustomerSucess = ordainedActiveCustomerSucess[index-1];
-        if(beforeCustomerSucess) {
-          return customer.score <= employee.score && customer.score > beforeCustomerSucess.score;
-        }
-        return customer.score <= employee.score;
-      }).length
-      return { id: employee.id, score}
-    });
-  }
+// function createCounterClients(ordainedActiveCustomerSucess,
+//   customers,
+//   ) 
+//   {
+//     return ordainedActiveCustomerSucess.map((employee, index) => { 
+//       const score = customers.filter((customer) =>{
+//         const beforeCustomerSucess = ordainedActiveCustomerSucess[index-1];
+//         if(beforeCustomerSucess) {
+//           return customer.score <= employee.score && customer.score > beforeCustomerSucess.score;
+//         }
+//         return customer.score <= employee.score;
+//       }).length
+//       return { id: employee.id, score}
+//     });
+//   }
 
+function findCustomerRepeatedScore(customerSuccess,
+  customers,
+  customerSuccessAway) {
+  const activeEmployees = checkActiveEmployees(customerSuccess, customerSuccessAway);
+  const sortedActiveCustomerSuccess = sortCrescentScore(activeEmployees);
+  const sortedCustomers = sortCrescentScore(customers);
+  const customersCountSameScore = {};
+  for (let index = 0; index < sortedCustomers.length; index++) {
+    const customerCurrent = sortedCustomers[index];
+    if (customersCountSameScore[customerCurrent.score]) {
+      customersCountSameScore[customerCurrent.score] += 1;
+    } else {
+      customersCountSameScore[customerCurrent.score] = 1;
+    }
+  }
+  const scoreAndRepetitionsArray = Object.entries(customersCountSameScore);
+
+  return scoreAndRepetitionsArray;
+}
 
 function customerSuccessBalancing(
   customerSuccess,
