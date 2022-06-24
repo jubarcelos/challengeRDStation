@@ -4,16 +4,23 @@
  * @param {array} customers
  * @param {array} customerSuccessAway
  */
+
+ function checkActiveEmployees(customerSuccess, customerSuccessAway) {
+  if (customerSuccessAway && customerSuccessAway !== []) {
+    const activeEmployees = customerSuccess.filter((employee) => {
+      return customerSuccessAway.every((awayEmployee) => awayEmployee !== employee.id);
+    })
+    return activeEmployees;
+  };
+  return customerSuccess;
+}
+
 function customerSuccessBalancing(
   customerSuccess,
   customers,
   customerSuccessAway
 ) {
-  /**
-   * ===============================================
-   * =========== Write your solution here ==========
-   * ===============================================
-   */
+ 
 }
 
 test("Scenario 1", () => {
