@@ -15,6 +15,12 @@
   return customerSuccess;
 }
 
+function customerSuccessAbstation(customerSuccess) {
+  const customerSuccessQuantityEmployees = customerSuccess.length;
+  const TWO = 2;
+  return Math.floor(customerSuccessQuantityEmployees / TWO);
+}
+
 function customerSuccessBalancing(
   customerSuccess,
   customers,
