@@ -25,6 +25,23 @@ function sortCrescentScore(data) {
   return data.sort((a, b) => a.score - b.score);
 }
 
+function createCounterClients(ordainedActiveCustomerSucess,
+  customers,
+  ) 
+  {
+    return ordainedActiveCustomerSucess.map((employee, index) => { 
+      const score = customers.filter((customer) =>{
+        const beforeCustomerSucess = ordainedActiveCustomerSucess[index-1];
+        if(beforeCustomerSucess) {
+          return customer.score <= employee.score && customer.score > beforeCustomerSucess.score;
+        }
+        return customer.score <= employee.score;
+      }).length
+      return { id: employee.id, score}
+    });
+  }
+
+
 function customerSuccessBalancing(
   customerSuccess,
   customers,
@@ -39,6 +56,15 @@ function customerSuccessBalancing(
     }
     const ZERO = 0;
     const ordainedActiveCustomerSucess = sortCrescentScore(checkActiveEmployees(customerSuccess, customerSuccessAway));
+    
+    const countedCustomerSucessClients = createCounterClients(ordainedActiveCustomerSucess,customers);
+
+    const ordaneidCountedCsClients = sortCrescentScore(countedCustomerSucessClients);
+
+    const last = ordaneidCountedCsClients.length-1;
+    const lastButOne = ordaneidCountedCsClients.length-2;
+    if(ordaneidCountedCsClients[last].score === ordaneidCountedCsClients[lastButOne].score) return ZERO;
+    return ordaneidCountedCsClients[last].id;
   }
 
 test("Scenario 1", () => {
