@@ -1,4 +1,33 @@
-<<<<<<< HEAD
+# challengeRDStation desenvolvido em JavaScript.
+
+# Abra o arquivo Javascript
+## Como rodar os testes
+
+No terminal, execute os comandos:
+
+```bash
+cd javascript
+yarn
+yarn test
+```
+
+Ou usando o NPM:
+
+```bash
+cd javascript
+npm install
+npm test
+```
+
+
+Desafio técnico realizado em dois dias corridos, concorridos.
+Vaga: Mulher Engenheira de Software - Suporte N3 (Hydra).
+Empresa: RD Station.
+Local: Florianópolis - Brasil.
+Modelo trabalho: Remoto, opcional Híbrido.
+
+====================
+
 # RD Challenge
 ## Nossas expectativas
 A equipe de engenharia da RDStation tem alguns princípios onde baseamos nosso trabalho diário. Um deles é: Projete seu código para ser mais fácil de entender, não mais fácil de escrever. 
@@ -24,95 +53,3 @@ Um CS pode atender mais de um cliente e além disso os CSs também podem sair de
 
 Dado este cenário, o sistema distribui os clientes com os CSs de capacidade de atendimento mais próxima (maior) ao tamanho do cliente.
 
-### Exemplo
-
-Se temos 6 clientes com os seguintes níveis: 20, 30, 35, 40, 60, 80 e dois CSs de níveis 50 e 100, o sistema deveria distribui-los da seguinte forma:
-
-- 20, 30, 35, 40 para o CS de nível 50
-- 60 e 80 para o CS de nível 100
-
-Sendo `n` o número de CSs, `m` o número de clientes e `t` o número de abstenções de CSs, calcular quais clientes serão atendidos por quais CSs de acordo com as regras apresentadas.
-
-
-### Premissas
-
-- Todos os CSs têm níveis diferentes
-- Não há limite de clientes por CS
-- Clientes podem ficar sem serem atendidos
-- Clientes podem ter o mesmo tamanho
-- 0 < n < 1.000
-- 0 < m < 1.000.000
-- 0 < id do cs < 1.000
-- 0 < id do cliente < 1.000.000
-- 0 < nível do cs < 10.000
-- 0 < tamanho do cliente < 100.000
-- Valor máximo de t = n/2 arredondado para baixo
-
-## Input
-
-A função `customerSuccessBalancing()` recebe 3 parâmetros:
-
-- id e nivel da experiencia do CS
-- id e nivel de experiência dos Clientes
-- ids dos CustomerSuccess indisponíveis
-
-
-## Output
-
-O resultado esperado deve ser o id do CS que atende mais clientes. Com esse valor a empresa poderá fazer um plano de ação para contratar mais CS's de um nível aproximado.
-
-Em caso de empate retornar `0`.
-
-### Exemplo
-
-No input de exemplo, CS's 2 e 4 estão de folga, sendo assim o CS 1 vai atender os clientes de tamanho até 60 (clientes 2, 4, 5, 6), enquanto o CS 3 vai atender os clientes 1 e 3.
-
-Para este exemplo o retorno deve ser `1`, que é o id do CS que atende 4 clientes:
-
-```
-1
-```
-## Choose your weapon:
-Nós vamos aceitar o teste em qualquer uma das linguagens abaixo.
-### Testes já implementados
-- [Ruby](ruby/README.md) 
-- [JavaScript](javascript/README.md)
-- [Java](java/README.md)
-- [Go](go/README.md)
-- 
-### Você precisa implementar os testes
-- C#
-- Python
-  
-
-## Download
-Você pode fazer o download do desafio aqui para as linguagens que já tem o teste implementado: [Link](./challenge.zip)
-=======
-# challengeRDStation
-
-# Javascript
-## Como rodar os testes
-
-No terminal, execute os comandos:
-
-```bash
-cd javascript
-yarn
-yarn test
-```
-
-Ou usando o NPM:
-
-```bash
-cd javascript
-npm install
-npm test
-```
-
-
-Desafio técnico realizado em dois dias corridos, concorridos.
-Vaga: Mulher Engenheira de Software - Suporte N3 (Hydra).
-Empresa: RD Station.
-Local: Florianópolis - Brasil.
-Modelo trabalho: Remoto, opcional Híbrido.
->>>>>>> ea0bb99d80cc7359d11fb7487999c8c374f6a402
