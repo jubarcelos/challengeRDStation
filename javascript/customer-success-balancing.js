@@ -5,7 +5,7 @@
  * @param {array} customerSuccessAway
  */
 
- function checkActiveEmployees(customerSuccess, customerSuccessAway) {
+function checkActiveEmployees(customerSuccess, customerSuccessAway) {
   if (customerSuccessAway && customerSuccessAway !== []) {
     const activeEmployees = customerSuccess.filter((employee) => {
       return customerSuccessAway.every((awayEmployee) => awayEmployee !== employee.id);
@@ -21,13 +21,25 @@ function customerSuccessAbstation(customerSuccess) {
   return Math.floor(customerSuccessQuantityEmployees / TWO);
 }
 
+function sortCrescentScore(data) {
+  return data.sort((a, b) => a.score - b.score);
+}
+
 function customerSuccessBalancing(
   customerSuccess,
   customers,
   customerSuccessAway
-) {
- 
-}
+  ) 
+  {
+    if (customerSuccessAway && customerSuccessAway.length > 0) {
+      const customerSuccessQuantityAway = customerSuccessAway.length;
+      if (customerSuccessAbstation(customerSuccess) < customerSuccessQuantityAway) {
+        throw new Error('The number of employees away is too big');
+      }
+    }
+    const ZERO = 0;
+    const ordainedActiveCustomerSucess = sortCrescentScore(checkActiveEmployees(customerSuccess, customerSuccessAway));
+  }
 
 test("Scenario 1", () => {
   const css = [
@@ -64,7 +76,7 @@ function mapEntities(arr) {
   }));
 }
 
-function arraySeq(count, startAt){
+function arraySeq(count, startAt) {
   return Array.apply(0, Array(count)).map((it, index) => index + startAt);
 }
 
@@ -87,7 +99,7 @@ test("Scenario 3", () => {
   expect(customerSuccessBalancing(css, customers, csAway)).toEqual(998);
 
   if (new Date().getTime() - testStartTime > testTimeoutInMs) {
-    throw new Error(`Test took longer than ${testTimeoutInMs}ms!`);
+    throw new Error(`Test took longer than ${ testTimeoutInMs }ms!`);
   }
 });
 
