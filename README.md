@@ -20,7 +20,7 @@ npm test
 ```
 
 
-Desafio técnico realizado em dois dias corridos, concorridos.
+Desafio técnico realizado em dois dias corridos.
 Vaga: Mulher Engenheira de Software - Suporte N3 (Hydra).
 Empresa: RD Station.
 Local: Florianópolis - Brasil.
